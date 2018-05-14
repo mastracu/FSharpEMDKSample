@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/datawedgeRebuild"
+  android:title="Rebuild all datawedge DB" />
+  <item android:id="@+id/inalcaCreate"
+  android:title="Add INALCA-SIMULSCAN profile" />"
+  <item android:id="@+id/fsharpILL"
+  android:title="Add F#ILL profile" />"
+  <item android:id="@+id/fsharpNOILL"
+  android:title="Add F#NOILL profile" />"
+</menu>

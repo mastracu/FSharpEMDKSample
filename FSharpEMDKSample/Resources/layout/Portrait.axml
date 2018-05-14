@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+    <RadioGroup
+        android:id="@+id/radioGroupPwr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radioSuspend"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Suspend (sleep mode)" />
+        <RadioButton
+            android:id="@+id/radioReset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Perform reset (reboot)" />
+    </RadioGroup>
+    <Button
+        android:id="@+id/buttonMX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/radioGroupPwr"
+        android:layout_marginLeft="15dp"
+        android:text="MX" />
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonMX"
+        android:layout_marginTop="20dp"
+        android:text="MX Event logging"
+        android:layout_alignParentLeft="true" />
+    <ListView
+        android:id="@+id/listViewStatusLog"
+        android:layout_below="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp" />
+    <Button
+        android:id="@+id/buttonSwitchProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listViewStatusLog"
+        android:text="Switch Profile to (DW)"
+        android:layout_marginRight="0.0dp"
+        android:layout_marginTop="20.0dp" />
+    <RadioGroup
+        android:id="@+id/radioGroupDW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSwitchProfile">
+        <RadioButton
+            android:id="@+id/barcodeILL"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Barcode reading Illuminator on" />
+        <RadioButton
+            android:id="@+id/barcodeNOILL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Barcode reading Illuminator off" />
+        <RadioButton
+            android:id="@+id/simulscan4Barcodes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Simulscan 4 barcodes" />
+    </RadioGroup>
+    <Button
+        android:id="@+id/activeProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroupDW"
+        android:layout_marginLeft="0.0dp"
+        android:text="Active Profile (DW)" />
+</RelativeLayout>

@@ -41,11 +41,75 @@ namespace FSharpEMDKSample
 			}
 		}
 		
+		public partial class Dimension
+		{
+			
+			// aapt resource value: 0x7f040000
+			public const int activity_horizontal_margin = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int activity_vertical_margin = 2130968577;
+			
+			static Dimension()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Dimension()
+			{
+			}
+		}
+		
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int myButton = 2131034112;
+			// aapt resource value: 0x7f07000b
+			public const int activeProfile = 2131165195;
+			
+			// aapt resource value: 0x7f070008
+			public const int barcodeILL = 2131165192;
+			
+			// aapt resource value: 0x7f070009
+			public const int barcodeNOILL = 2131165193;
+			
+			// aapt resource value: 0x7f070003
+			public const int buttonMX = 2131165187;
+			
+			// aapt resource value: 0x7f070006
+			public const int buttonSwitchProfile = 2131165190;
+			
+			// aapt resource value: 0x7f07000c
+			public const int datawedgeRebuild = 2131165196;
+			
+			// aapt resource value: 0x7f07000e
+			public const int fsharpILL = 2131165198;
+			
+			// aapt resource value: 0x7f07000f
+			public const int fsharpNOILL = 2131165199;
+			
+			// aapt resource value: 0x7f07000d
+			public const int inalcaCreate = 2131165197;
+			
+			// aapt resource value: 0x7f070005
+			public const int listViewStatusLog = 2131165189;
+			
+			// aapt resource value: 0x7f070007
+			public const int radioGroupDW = 2131165191;
+			
+			// aapt resource value: 0x7f070000
+			public const int radioGroupPwr = 2131165184;
+			
+			// aapt resource value: 0x7f070002
+			public const int radioReset = 2131165186;
+			
+			// aapt resource value: 0x7f070001
+			public const int radioSuspend = 2131165185;
+			
+			// aapt resource value: 0x7f07000a
+			public const int simulscan4Barcodes = 2131165194;
+			
+			// aapt resource value: 0x7f070004
+			public const int textView1 = 2131165188;
 			
 			static Id()
 			{
@@ -61,7 +125,7 @@ namespace FSharpEMDKSample
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int Portrait = 2130903040;
 			
 			static Layout()
 			{
@@ -69,6 +133,22 @@ namespace FSharpEMDKSample
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f060000
+			public const int option = 2131099648;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}
@@ -92,11 +172,11 @@ namespace FSharpEMDKSample
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int app_name = 2130968577;
+			// aapt resource value: 0x7f050001
+			public const int ApplicationName = 2131034113;
 			
-			// aapt resource value: 0x7f040000
-			public const int hello = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int Hello = 2131034112;
 			
 			static String()
 			{

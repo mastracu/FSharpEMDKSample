@@ -19,6 +19,9 @@
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
     <Name>FSharpEMDKSample</Name>
+    <SelectedDevice>Android_Accelerated_x86</SelectedDevice>
+    <DefaultDevice>Android_Accelerated_x86</DefaultDevice>
+    <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -51,9 +54,17 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.FSharp.targets" />
   <ItemGroup>
+    <AndroidAsset Include="Assets\AboutAssets.txt" />
+    <AndroidAsset Include="Assets\EMDKConfig.xml" />
+    <AndroidAsset Include="Assets\datawedge.db" />
+    <AndroidAsset Include="Assets\dwprofile_F#ILL.db" />
+    <AndroidAsset Include="Assets\dwprofile_F#NOILL.db" />
+    <AndroidAsset Include="Assets\dwprofile_INALCA-SIMULSCAN.db" />
     <None Include="Resources\AboutResources.txt" />
-    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\layout\Portrait.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\values\dimens.xml" />
+    <AndroidResource Include="Resources\menu\option.xml" />
     <AndroidResource Include="Resources\mipmap-hdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xhdpi\Icon.png" />
@@ -62,13 +73,16 @@
     <None Include="Properties\AndroidManifest.xml" />
     <Compile Include="Properties\AssemblyInfo.fs" />
     <Compile Include="MainActivity.fs" />
-    <AndroidAsset Include="Assets\AboutAssets.txt" />
-    <None Include="GettingStarted.Xamarin" />
-    <Content Include="packages.config" />
+    <None Include="EMDKConfig.xml" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
       <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\portable-net45+monoandroid10+monotouch10+xamarinios10\FSharp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Symbol.XamarinEMDK">
+      <HintPath>..\packages\Symbol.XamarinEMDK.2.7.0.76-rc\lib\MonoAndroid\Symbol.XamarinEMDK.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
