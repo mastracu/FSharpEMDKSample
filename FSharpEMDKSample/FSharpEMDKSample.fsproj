@@ -22,6 +22,7 @@
     <SelectedDevice>Android_Accelerated_x86</SelectedDevice>
     <DefaultDevice>Android_Accelerated_x86</DefaultDevice>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
+    <FSharpTargetsPath>C:\Users\vhrd47\AppData\Local\Microsoft\VisualStudio\15.0_a4d2c22b\Extensions\smge2x41.o5f\Microsoft.FSharp.targets</FSharpTargetsPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -73,8 +74,8 @@
     <None Include="Properties\AndroidManifest.xml" />
     <Compile Include="Properties\AssemblyInfo.fs" />
     <Compile Include="MainActivity.fs" />
-    <None Include="EMDKConfig.xml" />
     <None Include="packages.config" />
+    <None Include="EMDKConfig.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">

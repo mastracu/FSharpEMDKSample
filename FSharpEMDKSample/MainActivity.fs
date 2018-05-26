@@ -17,39 +17,32 @@ open Symbol.XamarinEMDK
 type Resources = FSharpEMDKSample.Resource
 
             
-// TODO
-// Request an intent back from DW to verify the "Switch Profile" command was succesful
-// Create logentry for every DW-related action / event
-// Add msecs to log entry timestamp 
+// TODO:MAY2018 Refactor datawedge configuration by using http://techdocs.zebra.com/datawedge/6-7/guide/api/importconfig/
+// TODO Request an intent back from DW to verify the "Switch Profile" command was succesful
+// TODO Add msecs to MX log entry timestamp 
 
 // UM AUGUST 2017
-// When I try to adorn the new type to statically register it in the manifest, compilation fails with
-// an error mentioning need to specify a default constructor
 // https://stackoverflow.com/questions/14265864/why-does-broadcastreceiver-need-a-default-constructor
 // I register dinamically instead the barcodeBroadcastReceiver activity member in OnCreate and it works
 // [<BroadcastReceiver(Enabled = true, Exported = true)>]
 type bReceiver (func1: String -> String -> String -> Unit, func2: String-> Unit) = 
    inherit BroadcastReceiver()               
-   let mutable decodedSource = ""
-   let mutable decodedData = ""
-   let mutable decodedLabelType = ""
-   let mutable activeProfile = ""
    override this.OnReceive (context, intent) =
       let action = intent.Action
       let b = intent.Extras
       match action with 
       | "com.zebra.dwapiexerciser.ACTION" ->
             do 
-                decodedSource <- b.GetString "com.symbol.datawedge.source"
-                decodedData <- b.GetString "com.symbol.datawedge.data_string"
-                decodedLabelType <- b.GetString "com.symbol.datawedge.label_type"
+                let decodedSource = b.GetString "com.symbol.datawedge.source"
+                let decodedData = b.GetString "com.symbol.datawedge.data_string"
+                let decodedLabelType = b.GetString "com.symbol.datawedge.label_type"
                 func1 decodedSource decodedData decodedLabelType
       | "com.symbol.datawedge.api.RESULT_ACTION" ->
             do 
-                activeProfile <- b.GetString "com.symbol.datawedge.api.RESULT_GET_ACTIVE_PROFILE"
+                let activeProfile = b.GetString "com.symbol.datawedge.api.RESULT_GET_ACTIVE_PROFILE"
                 func2 activeProfile
       | _ ->
-         ()
+            do ()
 
 
 [<Activity (Label = "FSharpEMDKSample", MainLauncher = true, Icon = "@mipmap/icon")>]
@@ -133,14 +126,12 @@ type MainActivity () =
 
     member this.sendSwitchProfileIntent (profileName:string) =
             let dw = new Intent ()
-            // legacy method for SwichtoProfile in DW 6.2
-            do  dw.SetAction "com.symbol.datawedge.api.ACTION_SWITCHTOPROFILE" |> ignore
-            do  dw.PutExtra("com.symbol.datawedge.api.EXTRA_PROFILENAME", profileName) |> ignore
+            do  dw.SetAction "com.symbol.datawedge.api.ACTION" |> ignore
+            do  dw.PutExtra ("com.symbol.datawedge.api.SWITCH_TO_PROFILE", profileName) |> ignore
             do  this.SendBroadcast dw
 
     member this.getActiveProfileIntent () =
             let dw = new Intent ()
-            // legacy method for SwichtoProfile in DW 6.2
             do  dw.SetAction "com.symbol.datawedge.api.ACTION" |> ignore
             do  dw.PutExtra ("com.symbol.datawedge.api.GET_ACTIVE_PROFILE", "") |> ignore
             do  this.SendBroadcast dw
@@ -166,16 +157,25 @@ type MainActivity () =
             do javaFile.SetWritable (true,false) |> ignore
             do javaFile.SetReadable (true,false) |> ignore
 
-        do Asset2DWAutoImport 
-            (if item.ItemId = Resources.Id.datawedgeRebuild then
-               "datawedge.db"
-            elif item.ItemId = Resources.Id.inalcaCreate then
-               "dwprofile_INALCA-SIMULSCAN.db"
-            elif item.ItemId = Resources.Id.fsharpNOILL then
-               "dwprofile_F#NOILL.db"
-            else // item.ItemId = Resources.Id.fsharpILL then
-               "dwprofile_F#ILL.db"
-            )
+         
+        if item.ItemId = Resources.Id.datawedgeRebuild then
+               do Asset2DWAutoImport "datawedge.db"
+        elif item.ItemId = Resources.Id.inalcaCreate then
+               do Asset2DWAutoImport "dwprofile_INALCA-SIMULSCAN.db"
+        elif item.ItemId = Resources.Id.fsharpNOILL then
+               do Asset2DWAutoImport "dwprofile_F#NOILL.db"
+        elif item.ItemId = Resources.Id.fsharpILL then
+               do Asset2DWAutoImport "dwprofile_F#ILL.db"
+        elif item.ItemId = Resources.Id.getExternal then
+               let fileList = this.GetExternalFilesDirs(null)
+               let dialog = (new AlertDialog.Builder (this)) 
+                             .SetTitle("Files can be placed in")
+                             .SetMessage(sprintf "%A" fileList.[0])
+                             .SetNeutralButton("OK" , new EventHandler<DialogClickEventArgs> (fun s dArgs -> ()) )
+                             .Create()
+               do dialog.Show()
+        else
+               () 
         true
          
     override this.OnResume () =
