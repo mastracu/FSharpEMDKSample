@@ -21,9 +21,7 @@ type Resources = FSharpEMDKSample.Resource
 // TODO Request an intent back from DW to verify the "Switch Profile" command was succesful
 // TODO Add msecs to MX log entry timestamp 
 
-// UM AUGUST 2017
 // https://stackoverflow.com/questions/14265864/why-does-broadcastreceiver-need-a-default-constructor
-// I register dinamically instead the barcodeBroadcastReceiver activity member in OnCreate and it works
 // [<BroadcastReceiver(Enabled = true, Exported = true)>]
 type bReceiver (func1: String -> String -> String -> Unit, func2: String-> Unit) = 
    inherit BroadcastReceiver()               
@@ -68,22 +66,13 @@ type MainActivity () =
             failure    
         results.StatusCode = EMDKResults.STATUS_CODE.Success || ( not (errorFoundXML results.StatusString) )
 
+    let mutable barcodeBroadcastReceiver = Unchecked.defaultof<bReceiver>
+
+
     let notification = new Event<String> ()
     [<CLIEvent>]
     member this.ZebraNotification = notification.Publish 
-           
-    member this.showBarcodeToast (a:String) (b:String) (c:String) = 
-       this.RunOnUiThread( fun() -> 
-          let barcodeToast = (Android.Widget.Toast.MakeText(this, b + "\n" + c, Android.Widget.ToastLength.Long))
-          do barcodeToast.Show() )
-
-    member this.showActiveProfile (a:String) = 
-       this.RunOnUiThread( fun() -> 
-          let barcodeToast = (Android.Widget.Toast.MakeText(this, "Active Profile: " + a, Android.Widget.ToastLength.Long))
-          do barcodeToast.Show() )
-            
-    member this.barcodeBroadcastReceiver = new bReceiver(this.showBarcodeToast, this.showActiveProfile)
-    
+               
     member this.ZebraInit () = 
         let results = EMDKManager.GetEMDKManager (Application.Context, this)
         do notification.Trigger ("GetEMDKManager" + (if (results.StatusCode <> EMDKResults.STATUS_CODE.Success) then " KO" else " OK"))
@@ -136,6 +125,15 @@ type MainActivity () =
             do  dw.PutExtra ("com.symbol.datawedge.api.GET_ACTIVE_PROFILE", "") |> ignore
             do  this.SendBroadcast dw
 
+    member this.showBarcodeToast (a:String) (b:String) (c:String) = 
+         let barcodeToast = (Android.Widget.Toast.MakeText(this, b + "\n" + c, Android.Widget.ToastLength.Long))
+         do barcodeToast.Show() 
+
+    member this.showActiveProfile (a:String) = 
+       this.RunOnUiThread( fun() -> 
+          let barcodeToast = (Android.Widget.Toast.MakeText(this, "Active Profile: " + a, Android.Widget.ToastLength.Long))
+          do barcodeToast.Show() )
+            
     override this.OnCreateOptionsMenu menu =
         let inflater = new MenuInflater (this) 
         do inflater.Inflate (Resources.Menu.option, menu)
@@ -175,7 +173,7 @@ type MainActivity () =
                              .Create()
                do dialog.Show()
         else
-               () 
+               ()       
         true
          
     override this.OnResume () =
@@ -183,7 +181,15 @@ type MainActivity () =
         let radioILLON = this.FindViewById<RadioButton>(Resources.Id.barcodeILL)
         do radioILLON.Checked <- true
         do this.sendSwitchProfileIntent "F#ILL"
-                   
+        let filter = new IntentFilter "com.zebra.dwapiexerciser.ACTION"
+        do filter.AddAction "com.symbol.datawedge.api.RESULT_ACTION"
+        do filter.AddCategory "android.intent.category.DEFAULT"
+        do this.RegisterReceiver (barcodeBroadcastReceiver, filter) |> ignore
+
+    override this.OnPause () =
+        do this.UnregisterReceiver (barcodeBroadcastReceiver)
+        base.OnPause()
+    
     override this.OnCreate (bundle) =
         base.OnCreate (bundle)
         do this.RequestedOrientation <- Android.Content.PM.ScreenOrientation.Nosensor        
@@ -225,12 +231,7 @@ type MainActivity () =
             )|> ignore
              
         do this.ZebraInit ()
-
-        // Added August 2017 UM
-        let filter = new IntentFilter "com.zebra.dwapiexerciser.ACTION"
-        do filter.AddAction "com.symbol.datawedge.api.RESULT_ACTION"
-        do filter.AddCategory "android.intent.category.DEFAULT"
-        do this.RegisterReceiver (this.barcodeBroadcastReceiver, filter) |> ignore
+        do barcodeBroadcastReceiver <- new bReceiver(this.showBarcodeToast, this.showActiveProfile)
 
     override this.OnDestroy() =
         base.OnDestroy()
