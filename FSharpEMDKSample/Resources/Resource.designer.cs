@@ -63,8 +63,8 @@ namespace FSharpEMDKSample
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f07000b
-			public const int activeProfile = 2131165195;
+			// aapt resource value: 0x7f070006
+			public const int activeProfile = 2131165190;
 			
 			// aapt resource value: 0x7f070008
 			public const int barcodeILL = 2131165192;
@@ -75,23 +75,20 @@ namespace FSharpEMDKSample
 			// aapt resource value: 0x7f070003
 			public const int buttonMX = 2131165187;
 			
-			// aapt resource value: 0x7f070006
-			public const int buttonSwitchProfile = 2131165190;
-			
-			// aapt resource value: 0x7f07000c
-			public const int datawedgeRebuild = 2131165196;
-			
-			// aapt resource value: 0x7f07000e
-			public const int fsharpILL = 2131165198;
-			
-			// aapt resource value: 0x7f07000f
-			public const int fsharpNOILL = 2131165199;
-			
-			// aapt resource value: 0x7f070010
-			public const int getExternal = 2131165200;
+			// aapt resource value: 0x7f07000b
+			public const int datawedgeRebuild = 2131165195;
 			
 			// aapt resource value: 0x7f07000d
-			public const int inalcaCreate = 2131165197;
+			public const int fsharpILL = 2131165197;
+			
+			// aapt resource value: 0x7f07000e
+			public const int fsharpNOILL = 2131165198;
+			
+			// aapt resource value: 0x7f07000f
+			public const int getExternal = 2131165199;
+			
+			// aapt resource value: 0x7f07000c
+			public const int inalcaCreate = 2131165196;
 			
 			// aapt resource value: 0x7f070005
 			public const int listViewStatusLog = 2131165189;

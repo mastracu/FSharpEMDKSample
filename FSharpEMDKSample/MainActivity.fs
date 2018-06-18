@@ -29,7 +29,7 @@ type bReceiver (func1: String -> String -> String -> Unit, func2: String-> Unit)
       let action = intent.Action
       let b = intent.Extras
       match action with 
-      | "com.zebra.dwapiexerciser.ACTION" ->
+      | "com.zebra.fsharp.ACTION" ->
             do 
                 let decodedSource = b.GetString "com.symbol.datawedge.source"
                 let decodedData = b.GetString "com.symbol.datawedge.data_string"
@@ -181,7 +181,7 @@ type MainActivity () =
         let radioILLON = this.FindViewById<RadioButton>(Resources.Id.barcodeILL)
         do radioILLON.Checked <- true
         do this.sendSwitchProfileIntent "F#ILL"
-        let filter = new IntentFilter "com.zebra.dwapiexerciser.ACTION"
+        let filter = new IntentFilter "com.zebra.fsharp.ACTION"
         do filter.AddAction "com.symbol.datawedge.api.RESULT_ACTION"
         do filter.AddCategory "android.intent.category.DEFAULT"
         do this.RegisterReceiver (barcodeBroadcastReceiver, filter) |> ignore
@@ -202,21 +202,20 @@ type MainActivity () =
 
         // Get our button from the layout resource, and attach an event to it
         let btnSet = this.FindViewById<Button>(Resources.Id.buttonMX)
-        let activeProfile = this.FindViewById<Button>(Resources.Id.activeProfile)
-
-        let buttonDWProfile = this.FindViewById<Button>(Resources.Id.buttonSwitchProfile)
         let pwrRadioSuspend = this.FindViewById<RadioButton>(Resources.Id.radioSuspend)
+        do btnSet.Click.Subscribe (fun args -> this.ZebraSetPowerProfile(if pwrRadioSuspend.Checked then "1" else "4")) |> ignore
+
         let radioILLON = this.FindViewById<RadioButton>(Resources.Id.barcodeILL)
         let radioILLOFF = this.FindViewById<RadioButton>(Resources.Id.barcodeNOILL)
-
-        do btnSet.Click.Subscribe (fun args -> this.ZebraSetPowerProfile(if pwrRadioSuspend.Checked then "1" else "4")) |> ignore
-        do buttonDWProfile.Click.Subscribe (fun args -> 
-            do this.sendSwitchProfileIntent (if radioILLON.Checked then "F#ILL" else if radioILLOFF.Checked then "F#NOILL" else "INALCA-SIMULSCAN" )
+        let profilesRadioGroup = this.FindViewById<RadioGroup>(Resources.Id.radioGroupDW)
+        do profilesRadioGroup.CheckedChange.Subscribe (fun args -> 
+            do this.sendSwitchProfileIntent (if radioILLON.Checked then "F#ILL" else if radioILLOFF.Checked then "F#NOILL" else "F#4BARCODES" )
              ) |> ignore
-        
+
+        let activeProfile = this.FindViewById<Button>(Resources.Id.activeProfile)
         do activeProfile.Click.Subscribe (fun args -> do this.getActiveProfileIntent ()) |> ignore
 
-        do this.ZebraNotification   .Subscribe (fun str -> 
+        do this.ZebraNotification.Subscribe (fun str -> 
             let currentTImeMillis = Java.Lang.JavaSystem.CurrentTimeMillis()
             let dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds (currentTImeMillis)
             let dateTime = dateTimeOffset.UtcDateTime
