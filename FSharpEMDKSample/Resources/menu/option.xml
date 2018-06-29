@@ -2,11 +2,13 @@
   <item android:id="@+id/datawedgeRebuild"
   android:title="Rebuild all datawedge DB" />
   <item android:id="@+id/inalcaCreate"
-  android:title="Add INALCA-SIMULSCAN profile" />"
+  android:title="Add F#4BARCODES profile" />"
   <item android:id="@+id/fsharpILL"
   android:title="Add F#ILL profile" />"
   <item android:id="@+id/fsharpNOILL"
   android:title="Add F#NOILL profile" />"
   <item android:id="@+id/getExternal"
   android:title="getExternalFilesDirs" />"
+  <item android:id="@+id/getModel"
+  android:title="Device Info" />"
 </menu>

@@ -172,6 +172,16 @@ type MainActivity () =
                              .SetNeutralButton("OK" , new EventHandler<DialogClickEventArgs> (fun s dArgs -> ()) )
                              .Create()
                do dialog.Show()
+        elif item.ItemId = Resources.Id.getModel then
+               let model = Android.OS.Build.Model
+               let mfc = Android.OS.Build.Manufacturer
+               let sn = Android.OS.Build.Serial
+               let dialog = (new AlertDialog.Builder (this)) 
+                             .SetTitle("Device Model")
+                             .SetMessage(sprintf "%s\n%s\n%s" mfc model sn)
+                             .SetNeutralButton("OK" , new EventHandler<DialogClickEventArgs> (fun s dArgs -> ()) )
+                             .Create()
+               do dialog.Show()
         else
                ()       
         true
