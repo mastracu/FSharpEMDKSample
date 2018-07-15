@@ -17,13 +17,7 @@ open Symbol.XamarinEMDK
 type Resources = FSharpEMDKSample.Resource
 
             
-// TODO:MAY2018 Refactor datawedge configuration by using http://techdocs.zebra.com/datawedge/6-7/guide/api/importconfig/
-// TODO Request an intent back from DW to verify the "Switch Profile" command was succesful
-// TODO Add msecs to MX log entry timestamp 
-
-// https://stackoverflow.com/questions/14265864/why-does-broadcastreceiver-need-a-default-constructor
-// [<BroadcastReceiver(Enabled = true, Exported = true)>]
-type bReceiver (func1: String -> String -> String -> Unit, func2: String-> Unit) = 
+type bReceiver (decodeAction: String -> String -> String -> Unit, activeProfileAction: String-> Unit) = 
    inherit BroadcastReceiver()               
    override this.OnReceive (context, intent) =
       let action = intent.Action
@@ -34,11 +28,11 @@ type bReceiver (func1: String -> String -> String -> Unit, func2: String-> Unit)
                 let decodedSource = b.GetString "com.symbol.datawedge.source"
                 let decodedData = b.GetString "com.symbol.datawedge.data_string"
                 let decodedLabelType = b.GetString "com.symbol.datawedge.label_type"
-                func1 decodedSource decodedData decodedLabelType
+                decodeAction decodedSource decodedData decodedLabelType
       | "com.symbol.datawedge.api.RESULT_ACTION" ->
             do 
                 let activeProfile = b.GetString "com.symbol.datawedge.api.RESULT_GET_ACTIVE_PROFILE"
-                func2 activeProfile
+                activeProfileAction activeProfile
       | _ ->
             do ()
 
@@ -182,6 +176,16 @@ type MainActivity () =
                              .SetNeutralButton("OK" , new EventHandler<DialogClickEventArgs> (fun s dArgs -> ()) )
                              .Create()
                do dialog.Show()
+        elif item.ItemId = Resources.Id.helpVersion  then
+               let model = Android.OS.Build.Model
+               let mfc = Android.OS.Build.Manufacturer
+               let sn = Android.OS.Build.Serial
+               let dialog = (new AlertDialog.Builder (this)) 
+                             .SetTitle("Device Model")
+                             .SetMessage(sprintf "%s\n%s\n%s" mfc model sn)
+                             .SetNeutralButton("OK" , new EventHandler<DialogClickEventArgs> (fun s dArgs -> ()) )
+                             .Create()
+               do dialog.Show()
         else
                ()       
         true
@@ -219,7 +223,7 @@ type MainActivity () =
         let radioILLOFF = this.FindViewById<RadioButton>(Resources.Id.barcodeNOILL)
         let profilesRadioGroup = this.FindViewById<RadioGroup>(Resources.Id.radioGroupDW)
         do profilesRadioGroup.CheckedChange.Subscribe (fun args -> 
-            do this.sendSwitchProfileIntent (if radioILLON.Checked then "F#ILL" else if radioILLOFF.Checked then "F#NOILL" else "F#4BARCODES" )
+            do this.sendSwitchProfileIntent (if radioILLON.Checked then "F#ILL" else if radioILLOFF.Checked then "F#NOILL" else "INALCA-SIMULSCAN" )
              ) |> ignore
 
         let activeProfile = this.FindViewById<Button>(Resources.Id.activeProfile)

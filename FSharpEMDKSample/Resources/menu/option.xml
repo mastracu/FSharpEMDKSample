@@ -11,4 +11,6 @@
   android:title="getExternalFilesDirs" />"
   <item android:id="@+id/getModel"
   android:title="Device Info" />"
+  <item android:id="@+id/helpVersion"
+  android:title="Version" />"
 </menu>

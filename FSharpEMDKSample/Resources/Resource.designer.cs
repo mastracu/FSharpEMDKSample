@@ -90,6 +90,9 @@ namespace FSharpEMDKSample
 			// aapt resource value: 0x7f070010
 			public const int getModel = 2131165200;
 			
+			// aapt resource value: 0x7f070011
+			public const int helpVersion = 2131165201;
+			
 			// aapt resource value: 0x7f07000c
 			public const int inalcaCreate = 2131165196;
 			

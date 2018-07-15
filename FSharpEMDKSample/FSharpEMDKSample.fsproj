@@ -19,7 +19,7 @@
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
     <Name>FSharpEMDKSample</Name>
-    <SelectedDevice>Android_Accelerated_x86</SelectedDevice>
+    <SelectedDevice>Zebra Technologies TC56</SelectedDevice>
     <DefaultDevice>Android_Accelerated_x86</DefaultDevice>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
     <FSharpTargetsPath>C:\Users\vhrd47\AppData\Local\Microsoft\VisualStudio\15.0_a4d2c22b\Extensions\smge2x41.o5f\Microsoft.FSharp.targets</FSharpTargetsPath>
