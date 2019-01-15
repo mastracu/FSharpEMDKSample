@@ -16,11 +16,10 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
-    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
     <Name>FSharpEMDKSample</Name>
-    <SelectedDevice>Zebra Technologies TC56</SelectedDevice>
-    <DefaultDevice>Android_Accelerated_x86</DefaultDevice>
+    <SelectedDevice>Android_Accelerated_x86_Oreo</SelectedDevice>
+    <DefaultDevice>Android_Accelerated_x86_Oreo</DefaultDevice>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
     <FSharpTargetsPath>C:\Users\vhrd47\AppData\Local\Microsoft\VisualStudio\15.0_a4d2c22b\Extensions\smge2x41.o5f\Microsoft.FSharp.targets</FSharpTargetsPath>
   </PropertyGroup>
@@ -75,25 +74,22 @@
     <Compile Include="Properties\AssemblyInfo.fs" />
     <Compile Include="MainActivity.fs" />
     <None Include="packages.config" />
-    <None Include="EMDKConfig.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\portable-net45+monoandroid10+monotouch10+xamarinios10\FSharp.Core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\FSharp.Core.4.5.4\lib\netstandard1.6\FSharp.Core.dll</HintPath>
     </Reference>
     <Reference Include="Symbol.XamarinEMDK">
-      <HintPath>..\packages\Symbol.XamarinEMDK.2.7.0.76-rc\lib\MonoAndroid\Symbol.XamarinEMDK.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Symbol.XamarinEMDK.3.0.0.41\lib\MonoAndroid\Symbol.XamarinEMDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="mscorlib" />
     <Reference Include="Mono.Android" />
     <Reference Include="Xamarin.Android.FSharp.ResourceProvider.Runtime">
-      <HintPath>..\packages\Xamarin.Android.FSharp.ResourceProvider.1.0.0.13\lib\Xamarin.Android.FSharp.ResourceProvider.Runtime.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Xamarin.Android.FSharp.ResourceProvider.1.0.0.28\lib\monoandroid81\Xamarin.Android.FSharp.ResourceProvider.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
