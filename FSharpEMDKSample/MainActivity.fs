@@ -23,7 +23,7 @@ type bReceiver (decodeAction: String -> String -> String -> Unit, activeProfileA
       let action = intent.Action
       let b = intent.Extras
       match action with 
-      | "com.zebra.fsharp.ACTION" ->
+      | "com.zebra.dwapiexerciser.ACTION" ->
             do 
                 let decodedSource = b.GetString "com.symbol.datawedge.source"
                 let decodedData = b.GetString "com.symbol.datawedge.data_string"
