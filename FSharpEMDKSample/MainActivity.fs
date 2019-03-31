@@ -195,7 +195,7 @@ type MainActivity () =
         let radioILLON = this.FindViewById<RadioButton>(Resources.Id.barcodeILL)
         do radioILLON.Checked <- true
         do this.sendSwitchProfileIntent "F#ILL"
-        let filter = new IntentFilter "com.zebra.fsharp.ACTION"
+        let filter = new IntentFilter "com.zebra.dwapiexerciser.ACTION"
         do filter.AddAction "com.symbol.datawedge.api.RESULT_ACTION"
         do filter.AddCategory "android.intent.category.DEFAULT"
         do this.RegisterReceiver (barcodeBroadcastReceiver, filter) |> ignore
